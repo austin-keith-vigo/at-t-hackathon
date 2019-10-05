@@ -22,7 +22,7 @@ const mainNavigator = createStackNavigator(
     Login: Loginscreen
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       title: '',
       headerStyle: {

@@ -31,6 +31,7 @@ class Homescreen extends Component{
 
         <NavigateButton
           buttonPressed={this.getDirections.bind(this)}
+          animationDuration={2000}
         />
 
       </View>
