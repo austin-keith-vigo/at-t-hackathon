@@ -24,10 +24,12 @@ const mainNavigator = createStackNavigator(
   {
     initialRouteName: "Login",
     defaultNavigationOptions: {
+      title: '',
       headerStyle: {
         height: 0,
         backgroundColor: GLOBALS.COLORS.PURPLE
-      }
+      },
+      gesturesEnabled: false
     }
   }
 );

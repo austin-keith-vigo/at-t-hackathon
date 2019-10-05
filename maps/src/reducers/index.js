@@ -2,6 +2,9 @@ import {combineReducers} from 'redux';
 
 //Reducers
 import LoginReducers from './LoginReducers';
+import HomeReducers from './HomeReducers';
+
 export default combineReducers({
-  login: LoginReducers
+  login: LoginReducers,
+  home: HomeReducers
 });
