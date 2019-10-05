@@ -6,6 +6,8 @@ import {
   Dimensions
 } from 'react-native';
 import GLOBALS from './../Globals';
+import {connect} from 'react-redux';
+import {finishedAnimatingSlider} from './../actions';
 
 class SliderTile extends Component {
   constructor () {
@@ -21,22 +23,18 @@ class SliderTile extends Component {
       this.yPos,
       {
         toValue: 1,
-        duration: 2000
+        duration: this.props.animationDuration
       }
-    ).start(() => this.moveUp())
+    ).start(() => this.props.finishedAnimatingSlider())
   }
 
   render() {
     const screenHeight = Math.round(Dimensions.get('window').height);
     const screenWidth = Math.round(Dimensions.get('window').width);
 
-    const trianglePos = this.yPos.interpolate({
+    const pos = this.yPos.interpolate({
       inputRange: [0,1],
-      outputRange: [screenHeight, 0]
-    });
-    const sqaurePos = this.yPos.interpolate({
-      inputRange: [0,1],
-      outputRange: [screenHeight, 0]
+      outputRange: [screenHeight, screenHeight * .2]
     });
 
     return (
@@ -53,14 +51,14 @@ class SliderTile extends Component {
             borderLeftColor: 'transparent',
             borderRightColor: 'transparent',
             borderBottomColor: GLOBALS.COLORS.DARK_PURPLE,
-            transform: [{translateY: trianglePos}]
+            transform: [{translateY: pos}]
           }}
         />
         <Animated.View
           style={{
             height: Math.round(Dimensions.get('window').height) * .8,
             backgroundColor: GLOBALS.COLORS.DARK_PURPLE,
-            transform: [{translateY: sqaurePos}]
+            transform: [{translateY: pos}]
           }}
         />
       </View>
@@ -68,8 +66,6 @@ class SliderTile extends Component {
   }
 }
 
-// <View style={styles.triangle}/>
-// <View style={styles.sliderBottom}/>
 const styles = {
   viewStyle: {
     backgroundColor: 'transparent',
@@ -98,5 +94,10 @@ const styles = {
   }
 };
 
+const mapStateToProps = state => {
+  return {
+    sliderAnimationRunning: state.login.sliderAnimationRunning
+  };
+};
 
-export default SliderTile;
+export default connect(mapStateToProps, {finishedAnimatingSlider})(SliderTile);
