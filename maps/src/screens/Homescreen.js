@@ -7,14 +7,14 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import GLOBALS from './../Globals';
-import {AddressToFromTextFields} from './../components';
+import {AddressToFromTextFields, NavigateButton} from './../components';
 import {
   addr1Changed,
   addr2Changed
 } from './../actions';
 
 class Homescreen extends Component{
-  _buttonPressed() {
+  getDirections() {
     console.log(this.props);
   }
   render(){
@@ -29,13 +29,9 @@ class Homescreen extends Component{
           animationDuration={2000}
         />
 
-        <TouchableOpacity
-          onPress={this._buttonPressed.bind(this)}
-        >
-          <View style={styles.buttonViewStyle}>
-            <Text style={styles.buttonTextStyle}>Navigate</Text>
-          </View>
-        </TouchableOpacity>
+        <NavigateButton
+          buttonPressed={this.getDirections.bind(this)}
+        />
 
       </View>
     );
