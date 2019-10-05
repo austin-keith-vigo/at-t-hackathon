@@ -1,1 +1,4 @@
-export {finishedAnimatingSlider} from './LoginActions.js';
+export {
+  finishedAnimatingSlider,
+  finishedAnimatingTitle
+} from './LoginActions.js';
