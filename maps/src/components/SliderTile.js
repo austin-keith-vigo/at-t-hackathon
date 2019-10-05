@@ -38,7 +38,7 @@ class SliderTile extends Component {
     });
 
     return (
-      <View style={styles.viewStyle}>
+      <View>
         <Animated.View
           style={{
             width: 0,

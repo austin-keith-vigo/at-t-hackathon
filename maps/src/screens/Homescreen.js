@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } from 'react-native';
 import {connect} from 'react-redux';
 import GLOBALS from './../Globals';
@@ -16,7 +17,6 @@ class Homescreen extends Component{
   _buttonPressed() {
     console.log(this.props);
   }
-
   render(){
     return(
       <View style={styles.viewStyle}>
@@ -26,6 +26,7 @@ class Homescreen extends Component{
           addr2Val={this.props.address2}
           addr1onChangeText={(text)=>this.props.addr1Changed(text)}
           addr2onChangeText={(text)=>this.props.addr2Changed(text)}
+          animationDuration={2000}
         />
 
         <TouchableOpacity
