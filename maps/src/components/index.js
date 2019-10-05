@@ -1,0 +1,1 @@
+export SliderTile from './SliderTile';

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import GLOBALS from './Globals';
 
 //Redux
 import {Provider, connect} from 'react-redux';
@@ -9,15 +10,25 @@ import reducers from './reducers';
 //Navigation
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import {Homescreen} from './screens';
+import {
+  Homescreen,
+  Loginscreen
+} from './screens';
 
 //Navigation Stack
 const mainNavigator = createStackNavigator(
   {
-    Home: Homescreen
+    Home: Homescreen,
+    Login: Loginscreen
   },
   {
-    initalRouteName: "Home"
+    initialRouteName: "Login",
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: 0,
+        backgroundColor: GLOBALS.COLORS.PURPLE
+      }
+    }
   }
 );
 const Navigator = createAppContainer(mainNavigator);

@@ -3,13 +3,12 @@ import {
   View,
   Text
 } from 'react-native';
-import {connect} from 'react-redux';
 
 class Homescreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
-
+        <Text>anohther</Text>
       </View>
     );
   }
