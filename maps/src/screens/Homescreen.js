@@ -7,17 +7,42 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import GLOBALS from './../Globals';
-import {AddressToFromTextFields, NavigateButton} from './../components';
+import {
+  AddressToFromTextFields,
+  NavigateButton,
+  DirectionsView
+} from './../components';
 import {
   addr1Changed,
-  addr2Changed
+  addr2Changed,
+  showSubView
 } from './../actions';
 
 class Homescreen extends Component{
-  getDirections() {
-    console.log(this.props);
+  constructor(props){
+    super(props);
+    this.subViewYPos = new Animated.Value(0);
   }
+  slideSubViewDown(){
+    Animated.timing(
+      this.subViewYPos,
+      {
+        toValue: 1,
+        duration: 1000
+      }
+    ).start();
+  }
+
+  getDirections() {
+    this.slideSubViewDown()
+  }
+
   render(){
+    const yPos = this.subViewYPos.interpolate({
+      inputRange: [0,1],
+      outputRange: [GLOBALS.SCREEN_HEIGHT, GLOBALS.SCREEN_HEIGHT * .1]
+    })
+
     return(
       <View style={styles.viewStyle}>
 
@@ -34,6 +59,14 @@ class Homescreen extends Component{
           animationDuration={2000}
         />
 
+        <Animated.View
+          style={{
+            position:'absolute',
+            transform:[{translateY: yPos}]
+          }}
+        >
+          <DirectionsView/>
+        </Animated.View>
       </View>
     );
   }
@@ -45,20 +78,8 @@ const styles = {
     flex: 1,
     justifyContent: 'center'
   },
-  buttonViewStyle: {
-    alignSelf:'flex-end',
-    backgroundColor: GLOBALS.COLORS.DARK_PURPLE,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 30
-  },
-  buttonTextStyle: {
-    color: 'white',
-    fontSize: 20,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 10,
-    paddingBottom: 10
+  subViewContainer: {
+    position: 'absolute',
   }
 };
 
@@ -71,7 +92,8 @@ const mapStateToProps = state => {
 
 const actions = {
   addr1Changed,
-  addr2Changed
+  addr2Changed,
+  showSubView
 };
 
 export default connect(mapStateToProps, actions)(Homescreen);

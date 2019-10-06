@@ -1,6 +1,9 @@
+import {Animated} from 'react-native';
+
 import {
   ADDR_1_CHANGED,
-  ADDR_2_CHANGED
+  ADDR_2_CHANGED,
+  SHOWING_SUB_VIEW
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -14,8 +17,7 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, address1: action.payload}
     case ADDR_2_CHANGED:
       return {...state, address2: action.payload}
-    default: {
+    default:
       return {...state};
-    }
   };
 };

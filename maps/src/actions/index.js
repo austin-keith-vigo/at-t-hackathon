@@ -5,5 +5,6 @@ export {
 
 export {
   addr1Changed,
-  addr2Changed
+  addr2Changed,
+  showSubView
 } from './HomeActions.js';
