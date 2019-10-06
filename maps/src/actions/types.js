@@ -7,3 +7,5 @@ export const ADDR_1_CHANGED = 'addr_1_changed';
 export const ADDR_2_CHANGED = 'addr_2_changed';
 export const SHOWING_SUB_VIEW = 'showing_sub_view';
 export const CLEAR_ADDR_FIELDS = 'clear_addr_fields';
+export const GOT_DIRECTIONS_DATA = 'got_directions_data';
+export const DELETE_DIRECTIONS_DATA = 'delete_directions_data';

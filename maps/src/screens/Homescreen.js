@@ -16,14 +16,16 @@ import {
   addr1Changed,
   addr2Changed,
   showSubView,
-  clearAddrFields
+  clearAddrFields,
+  updateSubViewData,
+  deleteDirectionsData
 } from './../actions';
 
 class Homescreen extends Component{
   constructor(props){
     super(props);
     this.subViewYPos = new Animated.Value(0);
-    this.slideAnimationDuration = 500
+    this.slideAnimationDuration = 500;
   }
   slideSubViewUp(){
     Animated.timing(
@@ -35,6 +37,7 @@ class Homescreen extends Component{
     ).start();
   }
   slideSubViewDown(){
+    this.props.deleteDirectionsData()
     Animated.timing(
       this.subViewYPos,
       {
@@ -46,6 +49,24 @@ class Homescreen extends Component{
 
   getDirections() {
     this.props.clearAddrFields();
+    //Turn spaces into mods
+    let address1 = this.props.address1.replace(' ','%');
+    let address2 = this.props.address2.replace(' ','%');
+    address1 = 'irvine%california';
+    address2 = 'fullerton%california';
+    const url = 'https://herokupolls.herokuapp.com/polls/?address1=' +
+                address1 + '&address2=' +
+                address2;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        let directions = [];
+        data['route']['legs'][0]['maneuvers'].forEach((maneuver) =>{
+          directions.push(maneuver.narrative);
+          this.props.updateSubViewData(directions);
+        });
+      });
     this.slideSubViewUp();
   }
 
@@ -107,7 +128,9 @@ const mapStateToProps = state => {
 const actions = {
   addr1Changed,
   addr2Changed,
-  clearAddrFields
+  clearAddrFields,
+  updateSubViewData,
+  deleteDirectionsData
 };
 
 export default connect(mapStateToProps, actions)(Homescreen);

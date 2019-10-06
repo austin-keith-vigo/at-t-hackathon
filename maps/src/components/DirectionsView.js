@@ -8,10 +8,24 @@ import {
 import GLOBALS from './../Globals';
 import {connect} from 'react-redux';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
+const _renderItem = (direction) => {
+  return (
+    <View style={{height: '20%', width: '30%'}}>
+      <Text>{direction}</Text>
+    </View>
+  );
+};
 const DirectionsView = (props) => {
   return(
     <GestureRecognizer onSwipeDown = {props.closeSubView}>
       <View style={styles.viewStyle}>
+        <FlatList
+          style={{flex:1}}
+          data={props.directionsData}
+          renderItem={({item,index})=>_renderItem(item)}
+          keyExtractor={(index)=>index.toString()}
+        />
       </View>
     </GestureRecognizer>
   );
@@ -26,5 +40,10 @@ const styles = {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    directionsData: state.home.directionsData
+  };
+};
 
-export default DirectionsView;
+export default connect(mapStateToProps)(DirectionsView);

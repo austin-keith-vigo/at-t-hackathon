@@ -6,5 +6,7 @@ export {
 export {
   addr1Changed,
   addr2Changed,
-  clearAddrFields
+  clearAddrFields,
+  updateSubViewData,
+  deleteDirectionsData
 } from './HomeActions.js';
