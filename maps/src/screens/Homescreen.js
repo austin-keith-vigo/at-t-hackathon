@@ -20,6 +20,7 @@ import {
   updateSubViewData,
   deleteDirectionsData
 } from './../actions';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 class Homescreen extends Component{
   constructor(props){
@@ -52,8 +53,6 @@ class Homescreen extends Component{
     //Turn spaces into mods
     let address1 = this.props.address1.replace(' ','%');
     let address2 = this.props.address2.replace(' ','%');
-    address1 = 'irvine%california';
-    address2 = 'fullerton%california';
     const url = 'https://herokupolls.herokuapp.com/polls/?address1=' +
                 address1 + '&address2=' +
                 address2;
@@ -77,32 +76,32 @@ class Homescreen extends Component{
     })
 
     return(
-      <View style={styles.viewStyle}>
+        <View style={styles.viewStyle}>
 
-        <AddressToFromTextFields
-          addr1Val={this.props.address1}
-          addr2Val={this.props.address2}
-          addr1onChangeText={(text)=>this.props.addr1Changed(text)}
-          addr2onChangeText={(text)=>this.props.addr2Changed(text)}
-          animationDuration={2000}
-        />
-
-        <NavigateButton
-          buttonPressed={this.getDirections.bind(this)}
-          animationDuration={2000}
-        />
-
-        <Animated.View
-          style={{
-            position:'absolute',
-            transform:[{translateY: yPos}]
-          }}
-        >
-          <DirectionsView
-            closeSubView={this.slideSubViewDown.bind(this)}
+          <AddressToFromTextFields
+            addr1Val={this.props.address1}
+            addr2Val={this.props.address2}
+            addr1onChangeText={(text)=>this.props.addr1Changed(text)}
+            addr2onChangeText={(text)=>this.props.addr2Changed(text)}
+            animationDuration={2000}
           />
-        </Animated.View>
-      </View>
+
+          <NavigateButton
+            buttonPressed={this.getDirections.bind(this)}
+            animationDuration={2000}
+          />
+
+          <Animated.View
+            style={{
+              position:'absolute',
+              transform:[{translateY: yPos}]
+            }}
+          >
+            <DirectionsView
+              closeSubView={this.slideSubViewDown.bind(this)}
+            />
+          </Animated.View>
+        </View>
     );
   }
 }
