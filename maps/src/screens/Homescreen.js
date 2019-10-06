@@ -15,32 +15,44 @@ import {
 import {
   addr1Changed,
   addr2Changed,
-  showSubView
+  showSubView,
+  clearAddrFields
 } from './../actions';
 
 class Homescreen extends Component{
   constructor(props){
     super(props);
     this.subViewYPos = new Animated.Value(0);
+    this.slideAnimationDuration = 500
+  }
+  slideSubViewUp(){
+    Animated.timing(
+      this.subViewYPos,
+      {
+        toValue: 1,
+        duration: this.slideAnimationDuration
+      }
+    ).start();
   }
   slideSubViewDown(){
     Animated.timing(
       this.subViewYPos,
       {
-        toValue: 1,
-        duration: 1000
+        toValue: 0,
+        duration: this.slideAnimationDuration
       }
     ).start();
   }
 
   getDirections() {
-    this.slideSubViewDown()
+    this.props.clearAddrFields();
+    this.slideSubViewUp();
   }
 
   render(){
     const yPos = this.subViewYPos.interpolate({
       inputRange: [0,1],
-      outputRange: [GLOBALS.SCREEN_HEIGHT, GLOBALS.SCREEN_HEIGHT * .1]
+      outputRange: [GLOBALS.SCREEN_HEIGHT, GLOBALS.SCREEN_HEIGHT * .07]
     })
 
     return(
@@ -65,7 +77,9 @@ class Homescreen extends Component{
             transform:[{translateY: yPos}]
           }}
         >
-          <DirectionsView/>
+          <DirectionsView
+            closeSubView={this.slideSubViewDown.bind(this)}
+          />
         </Animated.View>
       </View>
     );
@@ -93,7 +107,7 @@ const mapStateToProps = state => {
 const actions = {
   addr1Changed,
   addr2Changed,
-  showSubView
+  clearAddrFields
 };
 
 export default connect(mapStateToProps, actions)(Homescreen);

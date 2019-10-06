@@ -1,7 +1,8 @@
 import {
   ADDR_1_CHANGED,
   ADDR_2_CHANGED,
-  SHOWING_SUB_VIEW
+  SHOWING_SUB_VIEW,
+  CLEAR_ADDR_FIELDS
 } from './types';
 
 export const addr1Changed = (text) => {
@@ -24,3 +25,9 @@ export const showSubView = (slideDown) => {
     type:SHOWING_SUB_VIEW
   };
 };
+
+export const clearAddrFields = () => {
+  return {
+    type: CLEAR_ADDR_FIELDS
+  }
+}

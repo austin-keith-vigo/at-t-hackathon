@@ -7,11 +7,13 @@ import {
 } from 'react-native';
 import GLOBALS from './../Globals';
 import {connect} from 'react-redux';
-
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 const DirectionsView = (props) => {
   return(
-    <View style={styles.viewStyle}>
-    </View>
+    <GestureRecognizer onSwipeDown = {props.closeSubView}>
+      <View style={styles.viewStyle}>
+      </View>
+    </GestureRecognizer>
   );
 };
 
