@@ -76,6 +76,10 @@ class Homescreen extends Component{
     })
 
     return(
+      <GestureRecognizer
+        style={{flex:1}}
+        onSwipeDown={()=>this.slideSubViewDown()}
+      >
         <View style={styles.viewStyle}>
 
           <AddressToFromTextFields
@@ -102,6 +106,7 @@ class Homescreen extends Component{
             />
           </Animated.View>
         </View>
+      </GestureRecognizer>
     );
   }
 }
